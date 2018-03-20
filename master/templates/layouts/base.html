@@ -1,11 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Django - {% block title%} Homepage {% endblock %}</title>
-</head>
-<body>
-    {% block content%} {% endblock %}
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Pur Beurre - {% block title%} Homepage {% endblock %}</title>
+        <meta name="description" content="Pur Beurre mangeons plus sainement">
+    </head>
+    <body>
+        <main>
+            <header>
+                <a href="/">
+                    <img src="" alt="Pur Beurre des aliments sains" class="logo">
+                </a>
+                {% extends 'partials/menu.html' %}
+            </header>
+            <div id="main-container">
+                {% block content%} {% endblock %}
+            </div>
+            <footer id="main-footer">
+                {% extends 'partials/footer.html' %}
+            </footer>
+        </main>
 
-</body>
+
+
+    </body>
 </html>
