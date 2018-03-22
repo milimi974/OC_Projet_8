@@ -1,0 +1,58 @@
+.logo{
+    width: 50px;
+}
+#form-search .form-group{
+    background-color: #f05f40;
+    border-color: #f05f40;
+    display: inline-block;
+    border-radius: 100px;
+    padding-left: 15px;
+}
+#form-search .form-group input{
+    background-color: rgba(255,255,255,0.2);
+    padding: 5px ;
+    outline: none;
+    border: none;
+}
+#form-search .form-group input:focus{
+    background-color: rgba(255,255,255,1);
+}
+
+
+#form-search .form-group .btn{
+    border-radius: 0 50px 50px 0;
+}
+
+#mainNav .navbar-nav > li.nav-item > a.nav-link.menu-link-icon {
+
+    font-size: 1.15em;
+}
+.menu-icon{
+    width: 35px;
+    height: 35px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.menu-icon-carrot{
+    background-image: url("/static/img/carrot_inactive.png");
+}
+.menu-icon-carrot-inactive{
+    background-image: url("/static/img/carrot_inactive.png");
+}
+.menu-icon-carrot:hover{
+    background-image: url("/static/img/carrot.png");
+}
+.navbar-nav .search
+{
+    margin-right: 25px;
+    padding-top: 8px;
+}
+.menu-link-icon .error:hover{
+    color: crimson;
+}
+
+.footer
+{
+    padding: 15px 0;
+}
