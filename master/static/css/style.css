@@ -51,7 +51,22 @@
 .menu-link-icon .error:hover{
     color: crimson;
 }
-
+#mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link
+{
+    color: #bababa !important;
+}
+#mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:hover {
+    color: #de9440 !important;
+}
+.btn-gray
+{
+    background-color: rgba(255,255,255,.7);
+}
+#mainNav.navbar-shrink .navbar-nav > li.nav-item > a.btn-gray
+{
+    background-color: #bababa;
+    color: #FFFFFF !important;
+}
 .footer
 {
     padding: 15px 0;
