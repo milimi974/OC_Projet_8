@@ -67,7 +67,38 @@
     background-color: #bababa;
     color: #FFFFFF !important;
 }
+.page-header-menu{
+    padding-top: 10rem;
+    padding-bottom: calc(10rem - 105px);
+    background-image: url(../img/header.jpg);
+    background-position: center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.page-header{
+    padding-top: 20px;
+
+}
+.section-heading{
+    padding: 0.5rem 0;
+}
+#products .item
+{
+    margin: 10px 0;
+    position: relative;
+}
+#products .badge
+{
+    display: inline;
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    font-size: 1.1em;
+    padding: .3em .5em;
+}
 .footer
 {
-    padding: 15px 0;
+    padding: 15px 0 40px 0;
 }
