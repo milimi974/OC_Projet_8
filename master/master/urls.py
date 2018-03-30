@@ -24,6 +24,8 @@ from . import views
 
 urlpatterns = [
     path('', views.home),
+    url('mentions-legales', views.mentions, name='mentions'),
+    url('contact', views.contact, name='contact'),
     path('product/', include('product.urls')),
     path('admin/', admin.site.urls),
 ]

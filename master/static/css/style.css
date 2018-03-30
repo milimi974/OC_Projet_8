@@ -68,21 +68,28 @@
     color: #FFFFFF !important;
 }
 .page-header-menu{
-    padding-top: 10rem;
-    padding-bottom: calc(10rem - 105px);
-    background-image: url(../img/header.jpg);
+    padding: 2.3rem 0;
+}
+.page-header{
+    margin-top: 75px;
+    padding: 3rem 0;
     background-position: center center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
 }
-.page-header{
-    padding-top: 20px;
-
+h1,
+.masthead h2{
+    text-shadow: 0px 0px 1px #393939;
+    color: #fff;
+}
+#mainNav.bg-menu-dark {
+    background-color: #212529;
 }
 .section-heading{
     padding: 0.5rem 0;
+    margin-bottom: 15px;
 }
 #products .item
 {
@@ -97,6 +104,46 @@
     top: -10px;
     font-size: 1.1em;
     padding: .3em .5em;
+    color: #ffffff;
+}
+#products .badge-a
+{
+    background-color: #038141;
+}
+#products .badge-b
+{
+    background-color: #85bb2f;
+}
+#products .badge-c
+{
+    background-color: #fecb02;
+}
+#products .badge-d
+{
+    background-color: #ee8100;
+}
+#products .badge-e
+{
+    background-color: #e63e11;
+}
+
+.card .hoverlay{
+    display: none;
+    position: absolute;
+    height: 155px;
+    background-color: rgba(0,0,0,0.2);
+    width: 100%;
+    text-align: center;
+    font-size: 4em;
+    line-height: 155px;
+    color: #86ebe6;
+}
+.card:hover .hoverlay{
+    cursor: pointer;
+    display: block;
+}
+#about h3{
+    font-size: 1.4em;
 }
 .footer
 {

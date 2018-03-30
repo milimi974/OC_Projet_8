@@ -23,5 +23,6 @@ from django.conf.urls import include, url
 from . import views
 
 urlpatterns = [
-    path('search/', views.search),
+    url('search/', views.search, name="search"),
+    url('show/(?P<id>[0-9]+)$', views.show, name="show"),
 ]
