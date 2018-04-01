@@ -2,3 +2,4 @@
 env
 pycache
 /master/master/product/migrations
+/master/settings/production.py
