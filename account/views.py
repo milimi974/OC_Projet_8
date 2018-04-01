@@ -60,3 +60,7 @@ def register_view(request):
 
     context = {"form": form, "title": title}
     return render(request, 'account/form.html', context)
+
+# user profile view
+def profile_view(request):
+    return render(request, 'account/profile.html', {})
