@@ -25,14 +25,14 @@ from . import views
 from account.views import (
     RegisterUserView,
     login_view,
-    logout_view
-)
+    logout_view,
+    register_view)
 
 urlpatterns = [
 
     url('mentions-legales', views.mentions, name='mentions'),
     url('contact', views.contact, name='contact'),
-    url(r'^register/$', view=RegisterUserView.as_view(), name="register"),
+    url(r'^register/$', register_view, name="register"),
     url(r'^login/$', login_view, name="login"),
     url(r'^logout/$', logout_view, name="logout"),
     path('', views.home),

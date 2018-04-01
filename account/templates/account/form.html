@@ -24,6 +24,10 @@
         <form class="form-signin" method="post" action="{{ action }}">
             {% csrf_token%}
           {{ form|crispy }}
+          {% if title == 'Connexion'%}
+            <a href="{% url 'register' %}">S'inscrire</a>
+            <hr>
+          {% endif %}
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
