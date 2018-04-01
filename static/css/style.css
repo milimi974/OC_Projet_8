@@ -91,6 +91,13 @@ h1,
     padding: 0.5rem 0;
     margin-bottom: 15px;
 }
+.main-container {
+    margin-bottom: 80px;
+}
+.substitution h1{
+    color: inherit;
+    text-shadow: none;
+}
 #products .item
 {
     margin: 10px 0;
@@ -149,7 +156,34 @@ h1,
     margin: 25px auto;
 
 }
+.logout
+{
+    padding-top: 50px;
+}
+
+.logout .alert
+{
+    margin: 0 auto;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
 .footer
 {
-    padding: 15px 0 40px 0;
+  padding: 15px 0 40px 0;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 80px;
+  line-height: 60px; /* Vertically center the text there */
+  background-color: #f5f5f5;
 }

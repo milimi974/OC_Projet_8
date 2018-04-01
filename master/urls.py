@@ -23,7 +23,6 @@ from django.conf.urls import include, url
 from . import views
 
 from account.views import (
-    RegisterUserView,
     login_view,
     logout_view,
     register_view)

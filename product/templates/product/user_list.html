@@ -1,0 +1,47 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block content%}
+{% block title%} Mes aliments de substitution {% endblock %}
+<header class=" text-center text-primary d-flex page-header substitution" style="background-image: url('');">
+  <div class="container my-auto">
+    <div class="row">
+      <div class="col-lg-12 mx-auto">
+        <h1 class="text-uppercase">
+          <strong>Mes aliments de substitutions</strong>
+        </h1>
+        <hr>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="col-lg-8 mx-auto text-center">
+    <img class="img-fluid" src="{% static 'img/nutriscore.png' %}" alt="image Note nutritionnelle de couleur NutriScore">
+    <hr class="my-4">
+</div>
+<section class="p-0" id="products">
+  <div class="container ">
+    <div class="row">
+
+      {% for substitution in substitutions %}
+          <div class="col-sm-12 col-md-4 item">
+              <div class="card" style="width: 18rem;">
+                  <img class="img-fluid" src="{% static substitution.picture %}" alt="Photo {{ substitution.name }}">
+                  <a class="hoverlay"  href="{% url 'show' id=substitution.id %}">
+                      <i class="fas fa-eye"></i>
+                  </a>
+                  <span class="badge badge-pill badge-{{substitution.nutri_code}} text-uppercase" >{{substitution.nutri_code}}</span>
+                  <div class="card-body">
+                    <h5 class="card-title">{{ substitution.name }}</h5>
+                    <a class="btn-save" href="/product/delete/{{ substitution.id }}"><i class="fas fa-save"></i> Sauvegarder</a>
+                  </div>
+              </div>
+          </div>
+      {% endfor %}
+
+    </div>
+  </div>
+</section>
+
+
+{% endblock %}

@@ -19,6 +19,7 @@
         <li class="nav-item search">
           <a class="nav-link js-scroll-trigger btn btn-gray" href="#about">Chercher</a>
         </li>
+        {% if user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link js-scroll-trigger menu-link-icon" href="{% url 'register' %}"
           data-toggle="tooltip" data-placement="bottom" title="Mon compte"
@@ -26,23 +27,28 @@
              <i class="fas fa-2x fa-user"></i>
           </a>
         </li>
+        {% endif %}
+        {% if not user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link js-scroll-trigger menu-link-icon" href="{% url 'login' %}"
           data-toggle="tooltip" data-placement="bottom" title="Connexion"
           >
-             <i class="fas fa-sign-in-alt"></i>
+             <i class="fas fa-2x fa-sign-in-alt"></i>
           </a>
         </li>
+        {% endif %}
         <li class="nav-item">
-          <a class="nav-link js-scroll-trigger menu-link-icon" href="#portfolio"
+          <a class="nav-link js-scroll-trigger menu-link-icon" href="{% url 'subsitution' %}"
           data-toggle="tooltip" data-placement="bottom" title="Mes aliments"
           ><span class="menu-icon menu-icon-carrot"></span></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger menu-link-icon" href="/"
-          data-toggle="tooltip" data-placement="bottom" title="Déconnexion"
-          ><i class="fas fa-2x fa-sign-out-alt error"></i></a>
-        </li>
+        {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger menu-link-icon" href="{% url 'logout' %}"
+            data-toggle="tooltip" data-placement="bottom" title="Déconnexion"
+            ><i class="fas fa-2x fa-sign-out-alt error"></i></a>
+          </li>
+        {% endif %}
       </ul>
     </div>
   </div>
