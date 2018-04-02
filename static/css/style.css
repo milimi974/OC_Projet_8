@@ -209,7 +209,10 @@ h1,
 {
     margin: 0 auto;
 }
-
+.pagination
+{
+    margin: 15px auto;
+}
 /* Sticky footer styles
 -------------------------------------------------- */
 html {

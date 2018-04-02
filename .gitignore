@@ -1,6 +1,8 @@
 .idea
 env
 __pycache__
-/master/__pycache__
-/master/master/product/migrations
-/master/settings/production.py
+master/__pycache__
+account/__pycache__/
+product/__pycache__/
+master/master/product/migrations
+master/settings/production.py

@@ -1,5 +1,6 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
+
 {% block title%} {{ title }} {% endblock %}
 {% block content%}
 <header class="bg-dark text-center text-white d-flex page-header" style="background-image: url('{% static product.picture %}');">
@@ -54,6 +55,7 @@
       {% endfor %}
 
     </div>
+      {{ pagination }}
   </div>
 </section>
 

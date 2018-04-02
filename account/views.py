@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden, HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import (
@@ -11,7 +12,7 @@ from django.contrib.auth import (
 from django.views.generic import CreateView
 
 from .forms import UserRegisterForm, UserLoginForm
-
+from product.mocks import  Products
 
 # login view
 def login_view(request):
@@ -65,3 +66,17 @@ def register_view(request):
 def profile_view(request):
     title = "Profil"
     return render(request, 'account/profile.html', {"title": title})
+
+@login_required(login_url='/login/')
+def list(request):
+    # user products substitutions
+    title = "Mes aliments de substitution"
+    substitutions = Products.all()
+    product = Products.find(1)
+
+    context = {
+        'substitutions': substitutions,
+        'product': product,
+        'title': title,
+    }
+    return render(request, 'account/user_list.html', context)

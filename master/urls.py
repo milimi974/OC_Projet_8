@@ -42,6 +42,7 @@ urlpatterns = [
     url(r'^logout/$', logout_view, name="logout"),
     path('', views.home),
     path('product/', include('product.urls')),
+    path('user/', include('account.urls')),
     path('admin/', admin.site.urls),
 
 ]
