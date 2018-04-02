@@ -28,14 +28,16 @@
     font-size: 1.15em;
 }
 .menu-icon{
-    width: 35px;
     height: 35px;
-    background-size: contain;
+    background-size: 35px 35px;
     background-repeat: no-repeat;
     display: inline-block;
+    padding-left: 30px;
+    line-height: 40px;
 }
 .menu-icon-carrot{
     background-image: url("/static/img/carrot_inactive.png");
+
 }
 .menu-icon-carrot-inactive{
     background-image: url("/static/img/carrot_inactive.png");
@@ -48,8 +50,11 @@
     margin-right: 25px;
     padding-top: 8px;
 }
-.menu-link-icon .error:hover{
-    color: crimson;
+.error:hover{
+    color: crimson !important;
+}
+.login:hover{
+    color:#86ebe6 !important;
 }
 #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link
 {
@@ -87,6 +92,31 @@ h1,
 #mainNav.bg-menu-dark {
     background-color: #212529;
 }
+
+#mainNav.bg-menu-dark .navbar-toggler{
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.1);
+    background-color: white;
+}
+
+#mainNav.bg-menu-dark .nav-text{
+    color: #ffffff;
+}
+#mainNav.bg-menu-dark .navbar-nav > li.nav-item > a.nav-link
+{
+    color: #b1b1b1;
+}
+#mainNav .svg-inline--fa {
+    vertical-align: -.30em;
+}
+
+@media screen and (min-width: 984px) {
+    .nav-text{
+        display: none;
+    }
+}
+
+
 .section-heading{
     padding: 0.5rem 0;
     margin-bottom: 15px;

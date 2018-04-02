@@ -12,32 +12,33 @@ from django.contrib.auth import (
 User = get_user_model()
 
 class UserRegisterForm(forms.ModelForm):
-    password = forms.CharField(label='Mot de passe',widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Confirmer le mot de passe',widget=forms.PasswordInput)
+    password = forms.CharField(label='Confirmer le mot de passe',widget=forms.PasswordInput)
+    pass2 = forms.CharField(label='Mot de passe',widget=forms.PasswordInput)
+    first_name = forms.CharField(label='Prénom',widget=forms.TextInput, required=True)
+    last_name = forms.CharField(label='Nom',widget=forms.TextInput, required=True)
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password']
+        fields = ['username', 'first_name', 'last_name', 'email', 'pass2', 'password']
 
-    # validate field
-    def clean(self, *args, **kwargs):
 
-        #check email
+    def clean_password(self):
+        # check password
+        print(self.cleaned_data)
+        pwd1 = self.cleaned_data.get("password")
+        pwd2 = self.cleaned_data.get("pass2")
+
+        if pwd1 != pwd2:
+            raise forms.ValidationError("les mots de passe ne sont pas identique!")
+        return pwd1
+
+    def clean_email(self):
+        # check email
         email = self.cleaned_data.get("email")
         email_qs = User.objects.filter(email=email)
         if email_qs.exists():
             raise forms.ValidationError("Cette email est déjà existant!")
-
-        # check password
-        pwd1 = self.cleaned_data.get("password")
-        pwd2 = self.cleaned_data.get("password2")
-        if pwd1 != pwd2:
-            raise forms.ValidationError("les mots de passe ne sont pas identique!")
-
-        return super(UserRegisterForm, self).clean(*args, **kwargs)
-
-
-
+        return email
 
 
 class UserLoginForm(forms.Form):
