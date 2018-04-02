@@ -16,8 +16,15 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item search">
-          <a class="nav-link js-scroll-trigger btn btn-gray" href="#about">Chercher</a>
+        <li class="nav-item dropdown search">
+            <a class="nav-link dropdown-toggle btn btn-primary " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Chercher</a>
+            <div class="dropdown-menu">
+                <form class="form-inline" action="{% url 'search' %}" method="post">{% csrf_token %}
+                    <input class="form-control mr-sm-2" type="search" name="q" placeholder="Nom de l'aliment" aria-label="Search">
+
+                    <button class="btn btn-primary pull-right" type="submit">Chercher</button>
+                </form>
+            </div>
         </li>
         {% if user.is_authenticated %}
         <li class="nav-item">
@@ -42,7 +49,7 @@
         <li class="nav-item">
           <a class="nav-link js-scroll-trigger menu-link-icon" href="{% url 'subsitution' %}"
           data-toggle="tooltip" data-placement="bottom" title="Mes aliments"
-          ><span class="menu-icon menu-icon-carrot"><span class="nav-text">Mes aliments</span></span>
+          ><span class="menu-icon menu-icon-carrot" id="aliments"><span class="nav-text">Mes aliments</span></span>
 
           </a>
         </li>

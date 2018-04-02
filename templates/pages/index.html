@@ -1,5 +1,6 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
+{% block title%} {{ title }} {% endblock %}
 {% block content%}
 <header class="masthead text-center text-white d-flex">
   <div class="container my-auto">
@@ -14,7 +15,7 @@
         <h2 class="text-faded mb-5">Trouvez un produit de substitution pour ceux que vous consommez tous les jours</h2>
           <form action="{% url 'search' %}" id="form-search" method="post">{% csrf_token %}
               <div class="form-group">
-                  <input type="text" name="q"/>
+                  <input type="text" name="q" placeholder="Nom de l'aliment" />
                   <button class="btn btn-primary btn-xl" >Chercher</button>
               </div>
           </form>

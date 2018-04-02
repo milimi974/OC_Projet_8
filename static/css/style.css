@@ -1,6 +1,10 @@
 .logo{
     width: 50px;
 }
+.h1, h1 {
+    font-size: 2.3rem;
+}
+
 #form-search .form-group{
     background-color: #f05f40;
     border-color: #f05f40;
@@ -27,12 +31,18 @@
 
     font-size: 1.15em;
 }
+.nav-item form{
+    padding: 5px 5px 5px 10px;
+}
+.nav-item form .btn{
+    margin: 10px auto;
+}
 .menu-icon{
     height: 35px;
     background-size: 35px 35px;
     background-repeat: no-repeat;
     display: inline-block;
-    padding-left: 30px;
+    padding-left: 43px;
     line-height: 40px;
 }
 .menu-icon-carrot{
@@ -76,7 +86,7 @@
     padding: 2.3rem 0;
 }
 .page-header{
-    margin-top: 50px;
+    margin-top: 75px;
     padding: 3rem 0;
     background-position: center center;
     -webkit-background-size: cover;
@@ -105,6 +115,10 @@ h1,
 #mainNav.bg-menu-dark .navbar-nav > li.nav-item > a.nav-link
 {
     color: #b1b1b1;
+}
+#mainNav.bg-menu-dark .navbar-nav > li.nav-item > a.nav-link.btn
+{
+    color: #ffffff;
 }
 #mainNav .svg-inline--fa {
     vertical-align: -.30em;

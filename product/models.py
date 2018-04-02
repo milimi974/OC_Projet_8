@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -24,6 +23,8 @@ class Shop(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
 
+
+
 class Products(models.Model):
     """ Product class
         :argument
@@ -39,5 +40,7 @@ class Products(models.Model):
     create_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     categories = models.ManyToManyField(Category, related_name='products', blank=True)
     shops = models.ManyToManyField(Shop, related_name='products', blank=True)
-    users = models.ManyToManyField(User, related_name='products', blank=True)
+
+
+
 

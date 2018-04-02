@@ -10,11 +10,13 @@ def home(request):
 
 # Mentions legal view
 def mentions(request):
-    return render(request, 'pages/mentions_legal.html')
+    title = "Mentions légales"
+    return render(request, 'pages/mentions_legal.html', {'title':title})
 
 
 # Contact view
 def contact(request):
-    return render(request, 'pages/contact.html')
+    title = "Contact"
+    return render(request, 'pages/contact.html', {'title':title})
 
 

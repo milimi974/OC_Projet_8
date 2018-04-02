@@ -63,4 +63,5 @@ def register_view(request):
 
 # user profile view
 def profile_view(request):
-    return render(request, 'account/profile.html', {})
+    title = "Profil"
+    return render(request, 'account/profile.html', {"title": title})
