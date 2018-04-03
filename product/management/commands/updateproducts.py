@@ -6,7 +6,7 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument('--qty',  type=int)
-        parser.add_argument('--upload',  type=int)
+        parser.add_argument('--upload',  type=bool)
 
     def handle(self, *args, **options):
 

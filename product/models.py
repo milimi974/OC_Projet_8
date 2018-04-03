@@ -1,4 +1,6 @@
 import os
+
+import math
 from django.db import models
 
 # Create your models here.
@@ -61,9 +63,17 @@ class Category(models.Model):
             name : object name
 
         """
-        if self.list_object[name]:
+        try:
+            self.list_object[name]
             return self.list_object[name]
-        return False
+        except:
+            return False
+
+    def reset(self):
+        """ reset list """
+        self.list = []
+        self.list_object = {}
+
 
 class Shop(models.Model):
     """ Shops of product
@@ -112,15 +122,24 @@ class Shop(models.Model):
                 # stock shop object by name
                 self.list_object[shop] = shop_qs
 
+
+    def reset(self):
+        """ reset list """
+        self.list = []
+        self.list_object = {}
+
     def get_shop(self, name):
         """ return shop object by name
             :argument
             name : object name
 
         """
-        if self.list_object[name]:
+        try:
+            self.list_object[name]
             return self.list_object[name]
-        return False
+        except:
+            return False
+
 
 class ManageDB(models.Manager):
 
@@ -130,16 +149,26 @@ class ManageDB(models.Manager):
     # list of product to save
     products = []
 
+
     # update database with data from OpenFoodFact API
-    def update_db(self, qty=300, upload=True):
+    def update_db(self, qty=500, upload=True):
         if upload :
             upload_openfoodfact_cvs()
+
+        # total entry save
+        entry = 0
+        loop = 1
+        if qty > 500:
+            loop = math.floor(qty / 500)
+            qty = 501
 
         # Read Csv file from url
         filename = os.path.join(BASE_DIR, 'product/uploads/food.csv')
         with open(filename, newline='', encoding='utf-8') as csvfile:
             # Associating header with value in a dictionary
             reader = csv.DictReader(csvfile, delimiter='\t')
+            if qty == -1:
+                qty = sum(1 for row in reader)
 
             # Max line to save
             save_qty = 0
@@ -166,17 +195,34 @@ class ManageDB(models.Manager):
                     # add shops to object
                     self.shops.extract(row['stores'])
                     save_qty += 1
-                    if save_qty >= qty:
+                    entry += 1
+                    if loop > 0 and save_qty > qty:
+                        # create all categories
+                        self.categories.create_categories()
+
+                        # create all shops
+                        self.shops.create_shops()
+
+                        # create all product
+                        self.create_products()
+                        # reset data
+                        save_qty = 0
+                        self.categories.reset()
+                        self.shops.reset()
+                        loop -= 1
+                    if loop == 0:
                         break
 
-            # create all categories
-            self.categories.create_categories()
+            if qty < 500:
+                # create all categories
+                self.categories.create_categories()
 
-            # create all shops
-            self.shops.create_shops()
+                # create all shops
+                self.shops.create_shops()
 
-            # create all product
-            self.create_products()
+                # create all product
+                self.create_products()
+            return 'Total entry : '+ str(entry)
 
     def create_products(self):
 

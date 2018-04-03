@@ -8,15 +8,25 @@ from django.shortcuts import render, redirect
 # Create your views here.
 import tools
 from product.models import Product
-from .mocks import Products
+# from .mocks import Products
 
 
 def search(request):
     # Search products substitutions
     title = "Recherche d'aliment de substitution"
 
-    substitutions = Products.all()
-    product = Products.find(1)
+    # get terms to search
+    search = request.GET.get('term')
+    if not search:
+        search = request.POST.get('term')
+
+    product = []
+    substitutions = []
+    if search:
+        # search results into DB i for insensitive
+        product = Product.objects.filter(name__icontains=search)[0]
+        ids = product.categories.all().values_list('id', flat=True)
+        substitutions = Product.objects.filter(nutri_code__lt=product.nutri_code, categories__in=ids).exclude(nutri_code='').order_by('nutri_code')
 
     # pagination
     paginator = Paginator(substitutions, 12)
@@ -30,7 +40,7 @@ def search(request):
         substitutions = paginator.page(paginator.num_pages)
 
 
-    pagination = tools.pagination(substitutions, 10)
+    pagination = tools.pagination(substitutions, 10,{'url':{'term': search}})
     context = {
         'substitutions': substitutions,
         'product': product,
@@ -48,7 +58,7 @@ def show(request, id):
     :return: show view
     """
     title = "Aliments de substitution"
-    product = Products.find(id)
+    product = Product.objects.get(id=id)
 
     context = {
         'product':product,
@@ -69,8 +79,8 @@ def terms(request):
         # get terms to search
         search = request.GET.get('term')
         if search:
-            # search results into DB
-            products = Product.objects.filter(name__contains=search)
+            # search results into DB i for insensitive
+            products = Product.objects.filter(name__icontains=search)
             results = []
             # format data to return
             for product in products:

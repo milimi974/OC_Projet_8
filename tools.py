@@ -4,7 +4,13 @@ from django.template.loader import render_to_string
 
 
 
-def pagination(object, page_per_view=3):
+def pagination(object, page_per_view=3, params={}):
+    """ return paginate view html
+        :argument
+        page_per_view : max page selection display
+        params : dict options url : add + params on url
+
+    """
     # create paginate view
     more = False
     min_page = 0
@@ -33,11 +39,18 @@ def pagination(object, page_per_view=3):
             more = max_page + 1
             if more > object.paginator.num_pages:
                 more = False
+    url = ''
+    if params and params['url']:
+        for key, value in  params['url'].items():
+           url += '&{}={}'.format(key, value)
+
+
     context = {
         'total_page': range(min_page, max_page),
         'more': more,
         'paginate': object.paginator.num_pages > 0,
-        'object': object
+        'object': object,
+        'url':url
     }
     return render_to_string('partials/pagination.html', context)
 

@@ -25,7 +25,7 @@
 
       {% for product in products %}
           <div class="col-sm-12 col-md-4 item">
-              <div class="card text-center" style="width: 18rem;">
+              <div class="card card-product text-center" style="width: 18rem;">
                   <img class="img-fluid" src="{% static product.picture %}" alt="Photo {{ products.name }}">
                   <a class="hoverlay"  href="{% url 'show' id=product.id %}">
                       <i class="fas fa-eye"></i>
