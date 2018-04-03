@@ -1,10 +1,13 @@
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+import json
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 
 # Create your views here.
 import tools
+from product.models import Product
 from .mocks import Products
 
 
@@ -58,3 +61,25 @@ def show(request, id):
 def save(request):
     if request.user.is_authenticated:
        pass
+
+def terms(request):
+
+    data_json = 'fail'
+    if request.is_ajax:
+        # get terms to search
+        search = request.GET.get('term')
+        if search:
+            # search results into DB
+            products = Product.objects.filter(name__contains=search)
+            results = []
+            # format data to return
+            for product in products:
+                product_json = {}
+                product_json['label'] = product.name
+                product_json['value'] = product.name
+                results.append(product_json)
+            # convert json answer
+            data_json = json.dumps(results)
+
+    mimetype = 'application/json'
+    return HttpResponse(data_json, mimetype)

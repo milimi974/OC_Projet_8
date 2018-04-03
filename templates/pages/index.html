@@ -15,7 +15,10 @@
         <h2 class="text-faded mb-5">Trouvez un produit de substitution pour ceux que vous consommez tous les jours</h2>
           <form action="{% url 'search' %}" id="form-search" method="post">{% csrf_token %}
               <div class="form-group">
-                  <input type="text" name="q" placeholder="Nom de l'aliment" />
+                  <input type="text" name="terms"
+                         placeholder="Nom de l'aliment"
+                         id="autocomplete-product"
+                         data-href="{% url 'product_terms' %}"/>
                   <button class="btn btn-primary btn-xl text-uppercase" >Chercher</button>
               </div>
           </form>
