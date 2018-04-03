@@ -14,7 +14,9 @@ def search(request):
 
     substitutions = Products.all()
     product = Products.find(1)
-    paginator = Paginator(substitutions, 1)
+
+    # pagination
+    paginator = Paginator(substitutions, 12)
     page = request.GET.get('page')
 
     try:
@@ -25,7 +27,7 @@ def search(request):
         substitutions = paginator.page(paginator.num_pages)
 
 
-    pagination = tools.pagination(substitutions)
+    pagination = tools.pagination(substitutions, 10)
     context = {
         'substitutions': substitutions,
         'product': product,

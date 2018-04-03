@@ -1,8 +1,7 @@
-.idea
-env
-__pycache__
-master/__pycache__
-account/__pycache__/
-product/__pycache__/
-master/master/product/migrations
+.idea/
+env/
+__pycache__/
+product/uploads/food.csv
+migrations/
 master/settings/production.py
+static/

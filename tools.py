@@ -1,3 +1,5 @@
+import re
+import urllib
 from django.template.loader import render_to_string
 
 
@@ -38,3 +40,29 @@ def pagination(object, page_per_view=3):
         'object': object
     }
     return render_to_string('partials/pagination.html', context)
+
+
+def upload_openfoodfact_cvs():
+    """ That function simply download csv file source to local """
+    csv_uri = 'http://world.openfoodfacts.org/data/fr.openfoodfacts.org.products.csv'
+    try:
+        urllib.request.urlretrieve(csv_uri, './product/uploads/food.csv')
+        return True
+    except:
+        raise ("Can't upload csv file!")
+
+def upload_location(instance, filename):
+    """ return upload format location"""
+    return "%$/%s" %(instance.id, filename)
+
+def clear_string(text):
+    """ escape ' """
+    # remove special char
+    text = re.sub('r"[^a-zA-Z %., 0-9€_\-()@áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\'\"]"g', "", str(text))
+    # remove extra space
+    text = re.sub('r"\s+"g', " ", text)
+    # remove "
+    text = re.sub('r"[\"]"g', "'", text)
+    # escape '
+    text = re.sub('r"[\']"g', "\\'", text)
+    return text

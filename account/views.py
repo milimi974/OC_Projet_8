@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseForbidden, HttpResponse
+from django.core.paginator import PageNotAnInteger, EmptyPage, Paginator
+
 from django.shortcuts import render, redirect
 from django.contrib.auth import (
     authenticate,
@@ -9,8 +10,8 @@ from django.contrib.auth import (
 )
 
 # Create your views here.
-from django.views.generic import CreateView
 
+import tools
 from .forms import UserRegisterForm, UserLoginForm
 from product.mocks import  Products
 
@@ -36,10 +37,10 @@ def login_view(request):
 
 # logout view
 def logout_view(request):
-
+    # redirect homepage if already disconnected
     if not request.user.is_authenticated:
         return redirect("/")
-
+    # Disconnect user
     logout(request)
     return render(request, 'account/logout.html')
 
@@ -47,8 +48,10 @@ def logout_view(request):
 def register_view(request):
     title = "inscription"
     form = UserRegisterForm(request.POST or None)
+    # get reference to page to redirect after connection
     next = request.GET.get('next')
 
+    # Create user if clean form data
     if form.is_valid():
         user = form.save(commit=False)
         pwd = form.cleaned_data.get('password')
@@ -72,11 +75,25 @@ def list(request):
     # user products substitutions
     title = "Mes aliments de substitution"
     substitutions = Products.all()
-    product = Products.find(1)
+    products = Products.all()
+
+    # pagination
+    paginator = Paginator(products, 12)
+    page = request.GET.get('page')
+
+    try:
+        products = paginator.page(page)
+    except PageNotAnInteger:
+        products = paginator.page(1)
+    except EmptyPage:
+        products = paginator.page(paginator.num_pages)
+
+    pagination = tools.pagination(products, 10)
 
     context = {
         'substitutions': substitutions,
-        'product': product,
+        'products': products,
         'title': title,
+        'pagination': pagination
     }
     return render(request, 'account/user_list.html', context)
