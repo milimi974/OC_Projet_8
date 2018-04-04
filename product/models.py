@@ -56,6 +56,13 @@ class Category(models.Model):
                 # stock category object by name
                 self.list_object[category] = category_qs
 
+    def add_category_list(self, name):
+        """add one element name to list
+            Keyword arguments:
+            name -- string name of category
+        """
+        # merge list and remove duplicate
+        self.list = list(set().union(self.list, list(name)))
 
     def get_category(self, name):
         """ return category object by name
@@ -122,6 +129,14 @@ class Shop(models.Model):
                 # stock shop object by name
                 self.list_object[shop] = shop_qs
 
+    def add_category_list(self, name):
+        """add one element name to list
+            Keyword arguments:
+            name -- string name of shop
+        """
+        # merge list and remove duplicate
+        self.list = list(set().union(self.list, list(name)))
+
 
     def reset(self):
         """ reset list """
@@ -156,11 +171,11 @@ class ManageDB(models.Manager):
             upload_openfoodfact_cvs()
 
         # total entry save
-        entry = 0
+        entry = -1
         loop = 1
         if qty > 500:
             loop = math.floor(qty / 500)
-            qty = 501
+            qty = 500
 
         # Read Csv file from url
         filename = os.path.join(BASE_DIR, 'product/uploads/food.csv')
@@ -179,7 +194,7 @@ class ManageDB(models.Manager):
                 # Create a list of food object for each line
                 if row['product_name'] and row['code']:
                     # format product
-                    self.products.append({
+                    self.add_product_list({
                         'codebar': str(row['code']),
                         'link': row['url'],
                         'name': clear_string(row['product_name']),
@@ -196,7 +211,7 @@ class ManageDB(models.Manager):
                     self.shops.extract(row['stores'])
                     save_qty += 1
                     entry += 1
-                    if loop > 0 and save_qty > qty:
+                    if loop > 0 and save_qty > qty+1:
                         # create all categories
                         self.categories.create_categories()
 
@@ -207,9 +222,9 @@ class ManageDB(models.Manager):
                         self.create_products()
                         # reset data
                         save_qty = 0
-                        self.categories.reset()
-                        self.shops.reset()
                         loop -= 1
+                        self.reset_components()
+
                     if loop == 0:
                         break
 
@@ -224,8 +239,27 @@ class ManageDB(models.Manager):
                 self.create_products()
             return 'Total entry : '+ str(entry)
 
-    def create_products(self):
+    def reset_components(self):
+        # reset all components
+        self.categories.reset()
+        self.shops.reset()
+        self.products = []
 
+    def create_products(self):
+        """ method create a list of product
+            do before create_products():
+            self.add_product_list()
+
+            # add on by one entry
+            self.categories.add_category_list()
+            self.shops.add_shop_list()
+
+            # create all categories / shops
+            self.categories.create_categories()
+            self.shops.create_shops()
+
+        :return:
+        """
         # create all product
         for p in self.products:
 
@@ -246,13 +280,18 @@ class ManageDB(models.Manager):
             self.add_product_categories(product_qs, categories)
             self.add_product_shops(product_qs, shops)
 
-
+    def add_product_list(self, params):
+        """add one element product  to list
+           Keyword arguments:
+           params -- dict key : name field, value : value of field
+        """
+        self.products.append(params)
 
     def add_product_categories(self, product, categories):
         """ add all product categories
-            :argument
+            Keyword argument:
             product : qs product object
-            categories: list category name
+            categories : list category name
         """
         if categories:
             # list for bulk add
@@ -272,7 +311,7 @@ class ManageDB(models.Manager):
 
     def add_product_shops(self, product, shops):
         """ add all product shops
-           :argument
+           Keyword argument:
            product : qs product object
            shops : list shop name
         """
@@ -291,8 +330,6 @@ class ManageDB(models.Manager):
             if objs:
                 # bulk add shop
                 product.shops.add(*objs)
-
-
 
 
 class Product(models.Model):
