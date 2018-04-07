@@ -21,6 +21,10 @@ class Category(models.Model):
     # contain object instance
     list_object = {}
 
+    def __str__(self):
+        return self.name
+
+
     def extract(self, categories_str):
         """ extract categories name from list
 
@@ -44,7 +48,7 @@ class Category(models.Model):
         # test type of value if string
         if type(strvar) is str and strvar:
             # Make a list with string
-            return strvar.split(',')
+            return [x.strip() for x in strvar.split(',')]
         return False
 
 
@@ -96,6 +100,9 @@ class Shop(models.Model):
     # contain object instance
     list_object = {}
 
+    def __str__(self):
+        return self.name
+
     def extract(self, shops_str):
         """ extract shops name from list
 
@@ -118,7 +125,7 @@ class Shop(models.Model):
         # test type of value if string
         if type(strvar) is str and strvar:
             # Make a list with string
-            return strvar.split(',')
+            return [x.strip() for x in strvar.split(',')]
         return False
 
     def create_shops(self):
@@ -359,4 +366,8 @@ class Product(models.Model):
     shops = models.ManyToManyField(Shop, related_name='products', blank=True)
 
     objects = ManageDB()
+
+
+    def __str__(self):
+        return self.name
 

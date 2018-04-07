@@ -24,9 +24,10 @@ def search(request):
     substitutions = []
     if search:
         # search results into DB i for insensitive
-        product = Product.objects.filter(name__icontains=search)[0]
-        ids = product.categories.all().values_list('id', flat=True)
-        substitutions = Product.objects.filter(nutri_code__lt=product.nutri_code, categories__in=ids).exclude(nutri_code='').order_by('nutri_code')
+        product = Product.objects.filter(name__icontains=search).first()
+        if product:
+            ids = product.categories.all().values_list('id', flat=True)
+            substitutions = Product.objects.filter(nutri_code__lt=product.nutri_code, categories__in=ids).exclude(nutri_code='').order_by('nutri_code')
 
     # pagination
     paginator = Paginator(substitutions, 12)

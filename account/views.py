@@ -80,23 +80,23 @@ def list(request):
     # user product substitutions
     title = "Mes aliments de substitution"
     #substitutions = Product.all()
-    user_product = UserProduct.objects.all()
+    user_products = UserProduct.objects.all()
 
     # pagination
-    paginator = Paginator(user_product, 12)
+    paginator = Paginator(user_products, 12)
     page = request.GET.get('page')
 
     try:
-        user_product = paginator.page(page)
+        user_products = paginator.page(page)
     except PageNotAnInteger:
-        user_product = paginator.page(1)
+        user_products = paginator.page(1)
     except EmptyPage:
-        user_product = paginator.page(paginator.num_pages)
+        user_products = paginator.page(paginator.num_pages)
 
-    pagination = tools.pagination(user_product, 10)
+    pagination = tools.pagination(user_products, 10)
 
     context = {
-        'user_product': user_product,
+        'user_products': user_products,
         'title': title,
         'pagination': pagination
     }
@@ -106,19 +106,24 @@ def list(request):
 
 def save(request):
     data_json = {'status': 'error','message':'Produit déjà dans vos favoris.'}
-    if request.user.is_authenticated:
-
+    # if user are login
+    if request.user.is_authenticated and request.is_ajax:
+        # extract params from request
         product_id =  request.POST.get('id')
         substitution_id =  request.POST.get('sub_id')
         # if ids exists
         if product_id and substitution_id:
             # if substitution product already exist
-            sub = Product.objects.get(id=substitution_id)
+            sub = Product.objects.get(pk=substitution_id)
             if sub:
-                qs = UserProduct.objects.get(product_id=product_id)
-                if not qs:
-                    qs = UserProduct.objects.create(product_id=product_id)
-                qs.substitution.add(sub)
+                # if product assimilate to user
+                user_product_qs, create = UserProduct.objects.get_or_create(product_id=product_id, user=request.user)
+                # test if relation already exist none create
+                qs = user_product_qs.substitutions.filter(pk=substitution_id)
+                if not qs.exists():
+                    # if no relation add entry
+                    user_product_qs.substitutions.add(sub)
+                    data_json = {'status': 'success', 'message': 'Produit ajouté dans vos favoris.'}
 
     # convert json answer
     data_json = json.dumps(data_json)

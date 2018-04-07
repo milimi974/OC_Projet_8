@@ -79,6 +79,7 @@
 <p id="n10" class="stm run hide_run"><a href="#n10">10</a></p>
 <p id="n11" class="stm run hide_run"><a href="#n11">11</a></p>
 <p id="n12" class="stm run hide_run"><a href="#n12">12</a></p>
+<p id="n13" class="pln"><a href="#n13">13</a></p>
 
             </td>
             <td class="text">
@@ -92,8 +93,9 @@
 <p id="t8" class="pln">    <span class="com"># settings.AUTH_USER_MODEL identify current login user</span><span class="strut">&nbsp;</span></p>
 <p id="t9" class="pln"><span class="strut">&nbsp;</span></p>
 <p id="t10" class="stm run hide_run">    <span class="nam">user</span> <span class="op">=</span> <span class="nam">models</span><span class="op">.</span><span class="nam">ForeignKey</span><span class="op">(</span><span class="nam">settings</span><span class="op">.</span><span class="nam">AUTH_USER_MODEL</span><span class="op">,</span> <span class="nam">on_delete</span><span class="op">=</span><span class="nam">models</span><span class="op">.</span><span class="nam">CASCADE</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
-<p id="t11" class="stm run hide_run">    <span class="nam">product</span> <span class="op">=</span> <span class="nam">models</span><span class="op">.</span><span class="nam">OneToOneField</span><span class="op">(</span><span class="nam">Product</span><span class="op">,</span> <span class="nam">on_delete</span><span class="op">=</span><span class="nam">models</span><span class="op">.</span><span class="nam">CASCADE</span><span class="op">,</span> <span class="nam">related_name</span><span class="op">=</span><span class="str">'product'</span><span class="op">,</span> <span class="nam">blank</span><span class="op">=</span><span class="key">False</span><span class="op">,</span> <span class="nam">null</span><span class="op">=</span><span class="key">True</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
-<p id="t12" class="stm run hide_run">    <span class="nam">substitution</span> <span class="op">=</span> <span class="nam">models</span><span class="op">.</span><span class="nam">ManyToManyField</span><span class="op">(</span><span class="nam">Product</span><span class="op">,</span> <span class="nam">related_name</span><span class="op">=</span><span class="str">'substitution'</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t11" class="stm run hide_run">    <span class="nam">product</span> <span class="op">=</span> <span class="nam">models</span><span class="op">.</span><span class="nam">OneToOneField</span><span class="op">(</span><span class="nam">Product</span><span class="op">,</span><span class="nam">related_name</span><span class="op">=</span><span class="str">'product'</span><span class="op">,</span> <span class="nam">on_delete</span><span class="op">=</span><span class="nam">models</span><span class="op">.</span><span class="nam">CASCADE</span><span class="op">,</span> <span class="nam">null</span><span class="op">=</span><span class="key">True</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t12" class="stm run hide_run">    <span class="nam">substitutions</span> <span class="op">=</span> <span class="nam">models</span><span class="op">.</span><span class="nam">ManyToManyField</span><span class="op">(</span><span class="nam">Product</span><span class="op">,</span> <span class="nam">related_name</span><span class="op">=</span><span class="str">'substitution'</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t13" class="pln"><span class="strut">&nbsp;</span></p>
 
             </td>
         </tr>
@@ -104,7 +106,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v4.5.1</a>,
-            created at 2018-04-07 08:51
+            created at 2018-04-07 14:14
         </p>
     </div>
 </div>
