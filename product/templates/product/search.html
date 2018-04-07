@@ -20,7 +20,11 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 mx-auto text-center">
-        <h2 class="section-heading  text-white">Vous pouvez remplacer cet aliment par :</h2>
+        <h2 class="section-heading  text-white">
+
+            Vous pouvez remplacer cet aliment par :
+
+        </h2>
         <hr class="light my-4">
       </div>
     </div>
@@ -45,13 +49,19 @@
                   <div class="card-body text-center">
                     <span class="card-title ">{{ substitution.name }}</span>
                       <form action="{% url 'save_product'%}" method="post" class="form-add-product">
+                          {% csrf_token %}
                           <input type="hidden" name="id" value="{{ product.id }}">
-                          <input type="hidden" name="sub_id" value="{{ substitution.id}}">
+                          <input type="hidden" name="sub_id" value="{{ substitution.id }}">
                           <button class="btn btn-outline-biscuit"><i class="fas fa-save"></i> Sauvegarder</button>
                       </form>
                   </div>
               </div>
           </div>
+      {% empty %}
+        <div class="col text-caramel text-center">
+            <p> Désoler aucun aliment de substitution pour ce produit !</p>
+        </div>
+
       {% endfor %}
 
     </div>

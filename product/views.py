@@ -67,13 +67,8 @@ def show(request, id):
     return render(request, 'product/show.html', context)
 
 
-
-def save(request):
-    if request.user.is_authenticated:
-       pass
-
 def terms(request):
-
+    # auto complete search
     data_json = 'fail'
     if request.is_ajax:
         # get terms to search

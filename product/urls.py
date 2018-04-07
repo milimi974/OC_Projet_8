@@ -26,5 +26,4 @@ urlpatterns = [
     url('search/', views.search, name="search"),
     url('autocomplete/$', views.terms, name="product_terms"),
     url('show/(?P<id>[0-9]+)$', views.show, name="show"),
-    url('save/$', views.save, name="save_product"),
 ]

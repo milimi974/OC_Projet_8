@@ -1,5 +1,8 @@
+import json
+
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import PageNotAnInteger, EmptyPage, Paginator
+from django.http import HttpResponse
 
 from django.shortcuts import render, redirect
 from django.contrib.auth import (
@@ -12,8 +15,10 @@ from django.contrib.auth import (
 # Create your views here.
 
 import tools
+from account.models import UserProduct
+from product.models import Product
 from .forms import UserRegisterForm, UserLoginForm
-from product.mocks import  Products
+# from product.mocks import  Product
 
 # login view
 def login_view(request):
@@ -72,28 +77,50 @@ def profile_view(request):
 
 @login_required(login_url='/login/')
 def list(request):
-    # user products substitutions
+    # user product substitutions
     title = "Mes aliments de substitution"
-    substitutions = Products.all()
-    products = Products.all()
+    #substitutions = Product.all()
+    user_product = UserProduct.objects.all()
 
     # pagination
-    paginator = Paginator(products, 12)
+    paginator = Paginator(user_product, 12)
     page = request.GET.get('page')
 
     try:
-        products = paginator.page(page)
+        user_product = paginator.page(page)
     except PageNotAnInteger:
-        products = paginator.page(1)
+        user_product = paginator.page(1)
     except EmptyPage:
-        products = paginator.page(paginator.num_pages)
+        user_product = paginator.page(paginator.num_pages)
 
-    pagination = tools.pagination(products, 10)
+    pagination = tools.pagination(user_product, 10)
 
     context = {
-        'substitutions': substitutions,
-        'products': products,
+        'user_product': user_product,
         'title': title,
         'pagination': pagination
     }
+
     return render(request, 'account/user_list.html', context)
+
+
+def save(request):
+    data_json = {'status': 'error','message':'Produit déjà dans vos favoris.'}
+    if request.user.is_authenticated:
+
+        product_id =  request.POST.get('id')
+        substitution_id =  request.POST.get('sub_id')
+        # if ids exists
+        if product_id and substitution_id:
+            # if substitution product already exist
+            sub = Product.objects.get(id=substitution_id)
+            if sub:
+                qs = UserProduct.objects.get(product_id=product_id)
+                if not qs:
+                    qs = UserProduct.objects.create(product_id=product_id)
+                qs.substitution.add(sub)
+
+    # convert json answer
+    data_json = json.dumps(data_json)
+    mimetype = 'application/json'
+    return HttpResponse(data_json, mimetype)

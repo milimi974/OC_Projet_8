@@ -20,4 +20,5 @@ from django.conf.urls import include, url
 from . import views
 urlpatterns = [
     url('subsitution/$', views.list, name="subsitution"),
+    url('save/$', views.save, name="save_product"),
 ]
