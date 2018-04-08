@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
 
 ]
-ALLOWED_HOSTS = ['p8solon.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1']
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 MIDDLEWARE = [
@@ -136,6 +136,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
 #MEDIA_URL = "/media/"
 #MEDIA_ROOT = os.path.join(BASE_DIR, 'media_cdn')
@@ -153,3 +156,4 @@ if os.environ.get('ENV') == 'PRODUCTION':
 
     db_from_env = dj_database_url.config(conn_max_age=500)
     DATABASES['default'].update(db_from_env)
+    ALLOWED_HOSTS = ['p8solon.herokuapp.com']

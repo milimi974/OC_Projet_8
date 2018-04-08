@@ -29,12 +29,12 @@ from . import views
 
 urlpatterns = [
 
-    url('mentions-legales', views.mentions, name='mentions'),
-    url('contact', views.contact, name='contact'),
-    path('', views.home, name="home"),
-    path('product/', include('product.urls')),
-    path('user/', include('account.urls')),
-    path('admin/', admin.site.urls),
+    url(r'^mentions-legales/$', views.mentions, name='mentions'),
+    url(r'^contact/$', views.contact, name='contact'),
+    url(r'^$', views.home, name="home"),
+    url(r'^product/', include('product.urls')),
+    url(r'^user/', include('account.urls')),
+    url(r'^admin/', admin.site.urls),
 
 ]
 

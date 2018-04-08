@@ -28,10 +28,10 @@ from account.views import (
     list)
 
 urlpatterns = [
-    url('substitution/$', list, name="substitution"),
-    url('save/$', save, name="save_product"),
-    url('register/$', register_view, name="register"),
-    url('profile/$', profile_view, name="profile"),
-    url('login/$', login_view, name="login"),
-    url('logout/$', logout_view, name="logout"),
+    url(r'^substitution/$', list, name="substitution"),
+    url(r'^save/$', save, name="save_product"),
+    url(r'^register/$', register_view, name="register"),
+    url(r'^profile/$', profile_view, name="profile"),
+    url(r'^login/$', login_view, name="login"),
+    url(r'^logout/$', logout_view, name="logout"),
 ]
