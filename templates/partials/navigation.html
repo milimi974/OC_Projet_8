@@ -17,6 +17,8 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown search">
+            <a class="btn btn-primary " href="/" role="button" >Chercher</a>
+            {% comment %}
             <a class="nav-link dropdown-toggle btn btn-primary " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Chercher</a>
             <div class="dropdown-menu nav-search">
                 <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method="post">{% csrf_token %}
@@ -31,6 +33,7 @@
                 </form>
 
             </div>
+            {% endcomment %}
         </li>
         {% if user.is_authenticated %}
         <li class="nav-item">

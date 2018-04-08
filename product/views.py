@@ -2,8 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 import json
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
-
+from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
 import tools
@@ -59,7 +58,7 @@ def show(request, id):
     :return: show view
     """
     title = "Aliments de substitution"
-    product = Product.objects.get(pk=id)
+    product = get_object_or_404(Product,pk=id)
 
     context = {
         'product':product,

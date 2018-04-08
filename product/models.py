@@ -181,7 +181,7 @@ class ManageDB(models.Manager):
         entry = -1
         loop = 0
         if qty > 500:
-            loop = math.floor(qty / 500)
+            loop = math.floor(qty / 500) -1
             qty = 500
 
         # Read Csv file from url
