@@ -3,12 +3,12 @@
 {% block title%} {{ title }} {% endblock %}
 {% block content%}
 
-<header class="bg-dark text-center text-white d-flex page-header" style="background-image: url('{% static 'img/portfolio/thumbnails/1.jpg' %}');">
+<header class="bg-dark text-center text-white d-flex page-header" style="background-image: url('{{ product.picture }}');">
   <div class="container my-auto">
     <div class="row">
       <div class="col-lg-12 mx-auto">
         <h1 class="text-uppercase">
-          <strong>Aliment cherché </strong>
+          <strong>{{ product.name }} </strong>
         </h1>
         <hr>
       </div>
@@ -19,11 +19,7 @@
 
 <section class="p-0" id="product">
   <div class="container ">
-    <iframe
-     src="https://fr.openfoodfacts.org/produit/3263859870416/pommes-noisettes-leader-price"
-     width="100%" height="500"
-     sandbox>
-    </iframe>
+
   </div>
 </section>
 

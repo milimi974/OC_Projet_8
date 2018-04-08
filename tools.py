@@ -79,3 +79,10 @@ def clear_string(text):
     # escape '
     text = re.sub('r"[\']"g', "\\'", text)
     return text
+
+def clear_float(s):
+    # clear string then return float value
+    try:
+        return float(s)
+    except ValueError:
+        return 0.0

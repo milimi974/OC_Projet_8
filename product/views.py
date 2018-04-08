@@ -59,7 +59,7 @@ def show(request, id):
     :return: show view
     """
     title = "Aliments de substitution"
-    product = Product.objects.get(id=id)
+    product = Product.objects.get(pk=id)
 
     context = {
         'product':product,

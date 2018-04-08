@@ -5,7 +5,7 @@ from django.db import models
 
 # Create your models here.
 from master.settings import BASE_DIR
-from tools import upload_openfoodfact_cvs, upload_location, clear_string
+from tools import upload_openfoodfact_cvs, upload_location, clear_string, clear_float
 import csv  # Manage cvs file
 
 class Category(models.Model):
@@ -174,12 +174,12 @@ class ManageDB(models.Manager):
 
     # update database with data from OpenFoodFact API
     def update_db(self, qty=500, upload=True):
-        if upload :
+        if upload == True:
             upload_openfoodfact_cvs()
 
         # total entry save
         entry = -1
-        loop = 1
+        loop = 0
         if qty > 500:
             loop = math.floor(qty / 500)
             qty = 500
@@ -205,25 +205,30 @@ class ManageDB(models.Manager):
                         'codebar': str(row['code']),
                         'link': row['url'],
                         'name': clear_string(row['product_name']),
-                        'description': row['ingredients_text'],
+                        # 'description': row['ingredients_text'],
                         'nutri_code': row['nutrition_grade_fr'],
                         'picture': row['image_url'],
                         'categories': self.categories.str_to_list(row['categories_fr']),
-                        'shops': self.shops.str_to_list(row['stores']),
+                        # 'shops': self.shops.str_to_list(row['stores']),
+
+                        'fat': clear_float(row['fat_100g']),
+                        'saturated_fat': clear_float(row['saturated-fat_100g']),
+                        'sugars': clear_float(row['sugars_100g']),
+                        'salt': clear_float(row['salt_100g']),
                     })
 
                     # add categories to object
                     self.categories.extract(row['categories_fr'])
                     # add shops to object
-                    self.shops.extract(row['stores'])
+                    # self.shops.extract(row['stores'])
                     save_qty += 1
                     entry += 1
-                    if loop > 0 and save_qty > qty+1:
+                    if loop >= 1 and save_qty > qty+1:
                         # create all categories
                         self.categories.create_categories()
 
                         # create all shops
-                        self.shops.create_shops()
+                        # self.shops.create_shops()
 
                         # create all product
                         self.create_products()
@@ -232,7 +237,7 @@ class ManageDB(models.Manager):
                         loop -= 1
                         self.reset_components()
 
-                    if loop == 0:
+                    if loop == 0 and save_qty > qty+1:
                         break
 
             if qty < 500:
@@ -240,7 +245,7 @@ class ManageDB(models.Manager):
                 self.categories.create_categories()
 
                 # create all shops
-                self.shops.create_shops()
+                # self.shops.create_shops()
 
                 # create all product
                 self.create_products()
@@ -275,9 +280,9 @@ class ManageDB(models.Manager):
             product = dict(p)
 
             categories = product.get('categories')
-            shops =  product.get('shops')
+            # shops =  product.get('shops')
             del product['categories']
-            del product['shops']
+            # del product['shops']
 
             product_qs, created = Product.objects.update_or_create(
                 codebar=product.get('codebar'),
@@ -285,7 +290,7 @@ class ManageDB(models.Manager):
             )
 
             self.add_product_categories(product_qs, categories)
-            self.add_product_shops(product_qs, shops)
+            # self.add_product_shops(product_qs, shops)
 
     def add_product_list(self, params):
         """add one element product  to list
@@ -348,12 +353,12 @@ class Product(models.Model):
 
     # fields
     codebar = models.CharField(max_length=255, unique=True)
-    name = models.CharField(max_length=255, blank=False)
-    description = models.TextField()
+    name = models.TextField(max_length=512, blank=False) # no charfield cause long name
+    # description = models.TextField()
     nutri_code = models.CharField(max_length=1)
     link = models.CharField(max_length=255)
     picture = models.URLField(max_length=255)
-    image = models.ImageField(upload_to=upload_location,
+    """ image = models.ImageField(upload_to=upload_location,
                                 null=True,
                                 blank=True,
                                 width_field="width_field",
@@ -361,9 +366,17 @@ class Product(models.Model):
                                 )
     width_field = models.IntegerField(default=0)
     height_field = models.IntegerField(default=0)
+    """
     create_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     categories = models.ManyToManyField(Category, related_name='products', blank=True)
-    shops = models.ManyToManyField(Shop, related_name='products', blank=True)
+    # shops = models.ManyToManyField(Shop, related_name='products', blank=True)
+
+    # nutritional for 100g
+    fat = models.DecimalField(max_digits=5, decimal_places=2)
+    saturated_fat = models.DecimalField(max_digits=5, decimal_places=2)
+    sugars = models.DecimalField(max_digits=5, decimal_places=2)
+    salt = models.DecimalField(max_digits=5, decimal_places=2)
+
 
     objects = ManageDB()
 
