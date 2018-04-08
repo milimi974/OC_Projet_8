@@ -1,22 +1,23 @@
 import pytest
+from django.test import TestCase
 from mixer.backend.django import mixer
 from types import *
-from product.models import Category
+from product.models import Category, Product
+from django.core import management
 
 pytestmark = pytest.mark.django_db
 
-class TestProduct:
 
-    def test_model(self):
-        obj = mixer.blend('product.Product')
-        assert obj.pk == 1, 'Should create a Product instance'
+ # Update Product
+class UpdateProductTestCase(TestCase):
 
-    def test_category(self):
-        obj = mixer.blend('product.Category')
-        str_categories = 'pain, miel, poisson, céréales'
-        obj.extract(str_categories)
-        obj.create_categories()
-        
-        assert isinstance(obj.get_category('pain'), Category)
-        assert isinstance(obj.get_category('céréales'), Category)
-        assert obj.get_category('cérles') == False
+
+    # test that a new product is made
+    def test_new_product_is_made(self):
+        response = management.call_command('updateproducts', qty=1, upload=False)
+        self.assertEqual(response, 'Total entry : 1')
+        response = management.call_command('updateproducts', qty=510, upload=False)
+        self.assertEqual(response, 'Total entry : 510')
+        response = management.call_command('updateproducts', qty=1050, upload=False)
+        self.assertEqual(response, 'Total entry : 1050')
+

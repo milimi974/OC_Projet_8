@@ -18,7 +18,20 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls import include, url
 from . import views
+
+from account.views import (
+    login_view,
+    logout_view,
+    register_view,
+    profile_view,
+    save,
+    list)
+
 urlpatterns = [
-    url('subsitution/$', views.list, name="subsitution"),
-    url('save/$', views.save, name="save_product"),
+    url('substitution/$', list, name="substitution"),
+    url('save/$', save, name="save_product"),
+    url('register/$', register_view, name="register"),
+    url('profile/$', profile_view, name="profile"),
+    url('login/$', login_view, name="login"),
+    url('logout/$', logout_view, name="logout"),
 ]

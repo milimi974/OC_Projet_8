@@ -174,15 +174,16 @@ class ManageDB(models.Manager):
 
     # update database with data from OpenFoodFact API
     def update_db(self, qty=500, upload=True):
+
         if upload == True:
             upload_openfoodfact_cvs()
 
         # total entry save
         entry = -1
         loop = 0
+        max_entry = 500
         if qty > 500:
-            loop = math.floor(qty / 500) -1
-            qty = 500
+            loop = math.floor(qty / 500)
 
         # Read Csv file from url
         filename = os.path.join(BASE_DIR, 'product/uploads/food.csv')
@@ -223,7 +224,7 @@ class ManageDB(models.Manager):
                     # self.shops.extract(row['stores'])
                     save_qty += 1
                     entry += 1
-                    if loop >= 1 and save_qty > qty+1:
+                    if loop >= 1 and (save_qty > max_entry or entry == qty):
                         # create all categories
                         self.categories.create_categories()
 
@@ -237,7 +238,7 @@ class ManageDB(models.Manager):
                         loop -= 1
                         self.reset_components()
 
-                    if loop == 0 and save_qty > qty+1:
+                    if loop == 0 and entry == qty:
                         break
 
             if qty < 500:
@@ -372,10 +373,10 @@ class Product(models.Model):
     # shops = models.ManyToManyField(Shop, related_name='products', blank=True)
 
     # nutritional for 100g
-    fat = models.DecimalField(max_digits=5, decimal_places=2)
-    saturated_fat = models.DecimalField(max_digits=5, decimal_places=2)
-    sugars = models.DecimalField(max_digits=5, decimal_places=2)
-    salt = models.DecimalField(max_digits=5, decimal_places=2)
+    fat = models.DecimalField(max_digits=5, decimal_places=2, default=0)
+    saturated_fat = models.DecimalField(max_digits=5, decimal_places=2, default=0)
+    sugars = models.DecimalField(max_digits=5, decimal_places=2, default=0)
+    salt = models.DecimalField(max_digits=5, decimal_places=2, default=0)
 
 
     objects = ManageDB()
