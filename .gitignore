@@ -4,5 +4,4 @@ __pycache__/
 product/uploads/food.csv
 migrations/
 master/settings/production.py
-static/
 htmlcov/
