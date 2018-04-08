@@ -5,3 +5,4 @@ product/uploads/food.csv
 migrations/
 master/settings/production.py
 htmlcov/
+.pytest_cache/

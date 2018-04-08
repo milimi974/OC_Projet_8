@@ -1,5 +1,0 @@
-{
-  "account/tests/test_page.py::UserProductTestCase::test_user_product_page": true,
-  "account/tests/test_user_product.py::TestUserProduct::()::test_save": true,
-  "product/tests/test_page.py::ShowTestCase::test_show_page": true
-}
