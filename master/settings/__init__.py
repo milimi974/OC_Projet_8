@@ -16,7 +16,7 @@ import os
 import dj_database_url
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-print(BASE_DIR)
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -147,10 +147,7 @@ INTERNAL_IPS = ['127.0.0.1']
 
 if os.environ.get('ENV') == 'PRODUCTION':
     PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-    STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
-    STATICFILES_DIRS = (
-        os.path.join(BASE_DIR, 'static'),
-    )
+    STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static_cdn')
 
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
     db_from_env = dj_database_url.config(conn_max_age=500)
