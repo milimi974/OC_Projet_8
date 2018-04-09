@@ -5,3 +5,4 @@ product/uploads/food.csv
 master/settings/production.py
 htmlcov/
 .pytest_cache/
+master/static_cdn/
