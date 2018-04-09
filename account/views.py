@@ -76,7 +76,7 @@ def profile_view(request):
     return render(request, 'account/profile.html', {"title": title})
 
 @login_required(login_url='/user/login/')
-def list(request):
+def list_view(request):
     # user product substitutions
     title = "Mes aliments de substitution"
     #substitutions = Product.all()
@@ -104,7 +104,7 @@ def list(request):
     return render(request, 'account/user_list.html', context)
 
 
-def save(request):
+def save_view(request):
     data_json = {'status': 'error','message':'Produit déjà dans vos favoris.'}
     # if user are login
     if request.user.is_authenticated and request.is_ajax:
