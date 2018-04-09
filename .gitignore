@@ -6,4 +6,4 @@ master/settings/production.py
 htmlcov/
 .pytest_cache/
 master/static_cdn/
-tests/
+tests
