@@ -7,11 +7,13 @@ class Command(BaseCommand):
     help = 'Update database'
 
     def add_arguments(self, parser):
-        parser.add_argument('--qty',  type=int)
+        parser.add_argument('--product',  type=int)
+        parser.add_argument('--category',  type=int)
         parser.add_argument('--upload',  type=self.str2bool)
+        parser.add_argument('--api',  type=self.str2bool)
 
     def handle(self, *args, **options):
-        return Product.objects.update_db(qty=options['qty'], upload=options['upload'])
+        return Product.objects.update_db(qty=options['product'], qtyc=options['category'],upload=options['upload'], api=options['api'])
 
     def str2bool(self, v):
         if v.lower() in ('yes', 'true', 't', 'y', '1'):

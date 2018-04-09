@@ -31,10 +31,10 @@ class UserProductTestCase(TestCase):
     def setUp(self):
         User.objects.create_user('foo', 'myemail@test.com', 'bar')
         self.client.login(username='foo', password='bar')
-        product_qs = Product.objects.create(codebar="00112211a22atr")
-        substitution_qs = Product.objects.create(codebar="00112211a22atr2")
-        self.product = Product.objects.get(codebar="00112211a22atr")
-        self.substitution = Product.objects.get(codebar="00112211a22atr2")
+        product_qs = Product.objects.create(name="jus d'orange")
+        substitution_qs = Product.objects.create(name="jus de pamplemousse")
+        self.product = Product.objects.get(name="jus d'orange")
+        self.substitution = Product.objects.get(name="jus de pamplemousse")
 
     # test that a new user product is made
     def test_new_user_product_is_add(self):

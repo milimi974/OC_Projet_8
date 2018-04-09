@@ -20,8 +20,8 @@ class SearchTestCase(TestCase):
 class ShowTestCase(TestCase):
 
     def setUp(self):
-        product_qs = Product.objects.create(codebar="00112211a22atr")
-        self.product = Product.objects.get(codebar="00112211a22atr")
+        product_qs = Product.objects.create(name="pomme")
+        self.product = Product.objects.get(name="pomme")
 
 
     # test if show page return a 200 if item exist
