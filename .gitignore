@@ -2,6 +2,7 @@
 env/
 __pycache__/
 product/uploads/food.csv
+product/dumps/
 master/settings/production.py
 htmlcov/
 .pytest_cache/
