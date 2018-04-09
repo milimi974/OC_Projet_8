@@ -28,7 +28,7 @@ SECRET_KEY = 'kb=5k4p_z8&-tvu_k7q*0(2v#n(s1rk**y2sr8zsrzf_3_$utw'
 if os.environ.get('ENV') == 'PRODUCTION':
     DEBUG = False
 else:
-    DEBUG = True
+    DEBUG = False
 
 # Application definition
 
@@ -137,8 +137,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, '/static/'),
 )
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static_cdn')
 
 #MEDIA_URL = "/media/"
 #MEDIA_ROOT = os.path.join(BASE_DIR, 'media_cdn')
@@ -146,8 +148,6 @@ STATICFILES_DIRS = (
 INTERNAL_IPS = ['127.0.0.1']
 
 if os.environ.get('ENV') == 'PRODUCTION':
-    PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-    STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static_cdn')
 
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
     db_from_env = dj_database_url.config(conn_max_age=500)
