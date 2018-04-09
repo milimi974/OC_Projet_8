@@ -75,7 +75,7 @@ def profile_view(request):
     title = "Profil"
     return render(request, 'account/profile.html', {"title": title})
 
-@login_required(login_url='/login/')
+@login_required(login_url='/user/login/')
 def list(request):
     # user product substitutions
     title = "Mes aliments de substitution"
