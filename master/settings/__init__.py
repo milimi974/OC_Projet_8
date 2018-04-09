@@ -26,7 +26,7 @@ SECRET_KEY = 'kb=5k4p_z8&-tvu_k7q*0(2v#n(s1rk**y2sr8zsrzf_3_$utw'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 if os.environ.get('ENV') == 'PRODUCTION':
-    DEBUG = True
+    DEBUG = False
 else:
     DEBUG = True
 
@@ -152,4 +152,4 @@ if os.environ.get('ENV') == 'PRODUCTION':
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
     db_from_env = dj_database_url.config(conn_max_age=500)
     DATABASES['default'].update(db_from_env)
-    ALLOWED_HOSTS = ['p8solon.herokuapp.com']
+    ALLOWED_HOSTS = ['localhost','p8solon.herokuapp.com']
