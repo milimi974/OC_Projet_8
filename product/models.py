@@ -452,7 +452,7 @@ class Product(models.Model):
     name = models.CharField(max_length=255, blank=False)
     # description = models.TextField()
     nutri_code = models.CharField(max_length=1, null=True)
-    link = models.CharField(max_length=255)
+    link = models.CharField(max_length=255, null=True)
     picture = models.URLField(max_length=255, null=True)
     """ image = models.ImageField(upload_to=upload_location,
                                 null=True,
