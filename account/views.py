@@ -28,6 +28,7 @@ def login_view(request):
     next = request.GET.get('next')
     title = "Connexion"
     form = UserLoginForm(request.POST or None)
+
     if form.is_valid():
         username = form.cleaned_data.get("username")
         password = form.cleaned_data.get("password")
@@ -80,7 +81,7 @@ def list_view(request):
     # user product substitutions
     title = "Mes aliments de substitution"
     #substitutions = Product.all()
-    user_products = UserProduct.objects.all()
+    user_products = UserProduct.objects.all().order_by('id')
 
     # pagination
     paginator = Paginator(user_products, 12)
@@ -100,7 +101,6 @@ def list_view(request):
         'title': title,
         'pagination': pagination
     }
-
     return render(request, 'account/user_list.html', context)
 
 

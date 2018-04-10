@@ -30,7 +30,7 @@ def search(request):
             if not product.nutri_code:
                 nutri_code = 'g'
             substitutions = Product.objects.filter(nutri_code__lt=nutri_code, categories__in=ids).exclude(nutri_code='').order_by('nutri_code')
-
+    print(type(product))
     # pagination
     paginator = Paginator(substitutions, 12)
     page = request.GET.get('page')
