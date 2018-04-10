@@ -244,18 +244,22 @@ class ManageDB(models.Manager):
                             break
                     # change page
                     page += 1
-
+                # if total product reached reset counter then exit loop
                 if counter_p == qty:
                     total_product += counter_p
                     counter_p = 0
+                    # if update category and product reached inc category counter
                     if not create:
                         counter_c += 1
                     max = True
+            # if new category inc counter
             if create:
                 counter_c += 1
+                # if total product not reached in a category reset anyway
                 if counter_p < qty:
                     total_product += counter_p
                     counter_p = 0
+            # if total category reached exit loop
             if counter_c == qtyc:
                 break
 
