@@ -232,6 +232,7 @@ class ManageDB(models.Manager):
                 # get json list from remote
                 response = requests.get(request_url)
                 json_object = response.json()
+
                 # if no products exit loop
                 if len(json_object['products']) == 0:
                     max = True
@@ -241,6 +242,8 @@ class ManageDB(models.Manager):
                         counter_p += Product.add(data, category_qs)
                         if counter_p == qty:
                             break
+                    # change page
+                    page += 1
 
                 if counter_p == qty:
                     total_product += counter_p
@@ -250,6 +253,9 @@ class ManageDB(models.Manager):
                     max = True
             if create:
                 counter_c += 1
+                if counter_p < qty:
+                    total_product += counter_p
+                    counter_p = 0
             if counter_c == qtyc:
                 break
 
